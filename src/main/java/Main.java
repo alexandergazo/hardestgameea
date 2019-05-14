@@ -10,12 +10,12 @@ public class Main extends JFrame {
 
     private Board board;
 
-    public Main() {
-        init();
+    public Main(boolean playerMode) {
+        init(playerMode);
     }
 
-    private void init() {
-        board = new Board(Level1.DefaultLevel1);
+    private void init(boolean playerMode) {
+        board = new Board(Level1.DefaultLevel1, playerMode);
         add(board);
 
         setResizable(false);
@@ -43,8 +43,17 @@ public class Main extends JFrame {
 
     public static void main(String[] args) {
 
+        boolean playerMode = false;
+        if (args.length > 0 && args[0].equals("-p")) {
+            playerMode = true;
+        }
+
+        if (args.length > 0)
+            System.out.println(args[0]);
+
+        final boolean mode = playerMode;
         EventQueue.invokeLater(() -> {
-            JFrame ex = new Main();
+            JFrame ex = new Main(mode);
             ex.setVisible(true);
         });
     }

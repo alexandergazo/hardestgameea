@@ -21,7 +21,7 @@ public class Board extends JPanel implements Runnable, ActionListener {
      * Decides the mode of the application. In case its value is {@code true} the evolution algorithm will be computed,
      * otherwise the player mode will be entered, which means, that the user themselves can play the game.
      */
-    private static final boolean PLAYER_MODE = false;
+    private final boolean playerMode;
 
     private int DELAY = 0;
     private BufferedImage backgroundImage;
@@ -33,9 +33,10 @@ public class Board extends JPanel implements Runnable, ActionListener {
     public ILevel level;
     public LevelConfig levelConfig;
 
-    public Board(ILevel level) {
+    public Board(ILevel level, boolean playerMode) {
         this.level = level;
         levelConfig = level.getConfig();
+        this.playerMode = playerMode;
         initBoard();
     }
 
@@ -47,7 +48,7 @@ public class Board extends JPanel implements Runnable, ActionListener {
         backgroundImage = level.getLevelBackground();
         setPreferredSize(new Dimension(backgroundImage.getWidth(), backgroundImage.getHeight()));
 
-        if (PLAYER_MODE) {
+        if (playerMode) {
             DELAY = 10;
             player = new Player(this, levelConfig.playerConfig);
         } else {
